@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="{% static 'imgs/favicon.ico' %}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="btn btn-primary" aria-current="page" href="/">Smart Recommendation System</a>
+        <a class="btn btn-outline-primary" href="/service/">Intelligent Customer Service</a>
+        {% comment %} <a class="nav-link" href="#">Pricing</a> {% endcomment %}
+        {% comment %} <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="panel">
+  <div class="card">
+    <div class="card-header">
+      <h4 style="margin-bottom: 0;"><span class="badge bg-success">Recommendations</span></h4>
+    </div>
+    <div class="card-body">
+      <div class="row" id="container">
+        {% comment %} here is container, where cards appended {% endcomment %}
+      </div>
+    </div>
+  <div class="card-footer">
+    <a href="javascript:scrollTo(0,0)" class="btn btn-xs btn-primary">Back to top</a>
+  </div>
+  </div>
+</div>
+<div id="info" hidden>
+  <p>{{ u1 }}</p>
+  <p>{{ u2 }}</p>
+  <p>{{ u3 }}</p>
+  <p>{{ u4 }}</p>
+  <p>{{ u5 }}</p>
+</div>
+<form method="post" action="/analysis/">
+  {% csrf_token %}
+  <input type="text" id="json" style="display:none" name="json">
+  <button id="post" type="submit" onclick="inputjson()" style="display:none"></button>
+</form>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js/recommend.js' %}"></script>
+{% endblock script %}

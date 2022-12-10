@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="{% static 'imgs/favicon.ico' %}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="btn btn-outline-primary" aria-current="page" href="/">Smart Recommendation System</a>
+        <a class="btn btn-primary" href="/service/">Intelligent Customer Service</a>
+        {% comment %} <a class="nav-link" href="#">Pricing</a> {% endcomment %}
+        {% comment %} <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="panel">
+  <div class="card" style="border-radius: 25px">
+    <div class="card-header d-flex justify-content-left align-items-center p-3 bg-primary text-white" style="border-radius: 25px 25px 0px 0px">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
+        alt="avatar 1" style="width: 45px; height: 100%;">
+      &emsp;
+      <p class="mb-0" style="padding-top: 5px">Customer Service</p>
+    </div>
+    <div id="chat-scroll" class="card-body" style="height: 600px; overflow: auto;">
+      <div class="d-flex flex-row justify-content-start">
+        <div>
+          <p class="small p-2 ms-3 mb-1" style="background-color: #f5f6f7; border-radius: 15px 15px 15px 0px">Hi</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+        <div>
+          <p class="small p-2 me-3 mb-1 text-white bg-primary" style="border-radius: 15px 15px 0px 15px">Hiii, I'm good.</p>
+        </div>
+      </div>
+      <!--				
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>								
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+        <div>
+          <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>								
+      <div class="d-flex flex-row justify-content-start">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;">
+        <div>
+          <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+        <div>
+          <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>
+        </div>
+      </div>
+      -->
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3 bg-body" style="border-radius: 0px 0px 25px 25px">
+      <input type="text" class="form-control" id="chat-input"
+        placeholder="type here..." style="border-radius: 15px" onkeydown="enter();">
+      &emsp;
+      <button class="btn btn-primary" style="border-radius: 24px" id="chat-send">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js/service.js' %}"></script>
+{% endblock script %}
