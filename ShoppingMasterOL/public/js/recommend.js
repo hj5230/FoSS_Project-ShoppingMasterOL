@@ -103,7 +103,9 @@ const inputjson = () => {
   const infolist = []
   let info = (document.querySelector('#info')).querySelectorAll('p')
   for(let i of info) {
-    if(i.outerText.length / 3 == 1) infolist.push([
+    console.log(i.innerText)
+    if(i.outerText.length == 2) infolist.push([])
+    else if(i.outerText.length / 3 == 1) infolist.push([
       parseInt(i.outerText.substring(1, 2))
     ])
     else infolist.push([
@@ -111,6 +113,7 @@ const inputjson = () => {
       parseInt(i.outerText.substring(4, 5))
     ])
   }
+  console.log(infolist)
   for(let i in infolist) {
     await setUser(parseInt(i))
     for(let j of infolist[i]) await fetchItem(j)

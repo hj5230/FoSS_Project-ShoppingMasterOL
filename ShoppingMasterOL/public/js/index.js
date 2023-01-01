@@ -124,7 +124,6 @@ const inputjson = () => {
       let row = selects[i].id[0]
       let col = selects[i].id[1]
       matrix[row][col] = 1
-      console.log(matrix);
     }
   }
   document.querySelector('#submit').onclick = () => {
