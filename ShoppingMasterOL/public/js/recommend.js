@@ -58,7 +58,7 @@ const fetchItem = async(col) => {
   document.querySelector('#container').appendChild(newCard)
 }
 
-const setUser = async(col) => {
+const setUser = async(col, tags) => {
   const url = await fetch('/getuser/')
   .then((response) => {
     const reader = response.body.getReader()
@@ -90,20 +90,43 @@ const setUser = async(col) => {
   newCard.innerHTML = user
   newCard.querySelector('img').setAttribute('src', url)
   newCard.querySelector('.card-title').innerText = "User " + (col + 1)
+  if(tags.length == 0) newCard.querySelector('.card-text').innerText = "Tags: None"
+  else newCard.querySelector('.card-text').innerText = "Tags: " + tags
   document.querySelector('#container').appendChild(newCard)
 }
 
-const inputjson = () => {
-  let input = document.querySelector('#json')
-  input.value = JSON.stringify(matrix).toString()
-}
+// const inputjson = () => {
+//   let input = document.querySelector('#json')
+//   input.value = JSON.stringify(matrix).toString()
+// }
 
 (async() => {
   console.log("Built with Django")
+  const taglist = []
+  let tags = (document.querySelector('#info')).querySelectorAll('span')
+  for(let i of tags) {
+    console.log(i.innerHTML)
+    if(i.innerText.indexOf('\'') != -1) {
+      if(i.innerText.indexOf(',') == -1)
+      taglist.push([
+        i.innerText.substring(2, i.innerText.lastIndexOf('\''))
+      ])
+      else {
+        let indexs = []
+        for(let j in i.innerHTML) 
+        if(i.innerText.charAt(j) == '\'') indexs.push(parseInt(j))
+        taglist.push([
+          i.innerText.substring(indexs[0] + 1, indexs[1]),
+          i.innerText.substring(indexs[2] + 1, indexs[3])
+        ])
+      }
+    }
+    else taglist.push([])
+  }
+  console.log(taglist)
   const infolist = []
   let info = (document.querySelector('#info')).querySelectorAll('p')
   for(let i of info) {
-    console.log(i.innerText)
     if(i.outerText.length == 2) infolist.push([])
     else if(i.outerText.length / 3 == 1) infolist.push([
       parseInt(i.outerText.substring(1, 2))
@@ -113,9 +136,8 @@ const inputjson = () => {
       parseInt(i.outerText.substring(4, 5))
     ])
   }
-  console.log(infolist)
   for(let i in infolist) {
-    await setUser(parseInt(i))
+    await setUser(parseInt(i), taglist[i])
     for(let j of infolist[i]) await fetchItem(j)
   }
 })()

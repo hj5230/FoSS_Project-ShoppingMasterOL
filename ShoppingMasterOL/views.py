@@ -9,7 +9,7 @@ def index(request):
     return render(request, 'index.html')
 
 def service(request):
-    init_chatbot()
+    # init_chatbot()
     return render(request, 'service.html')
 
 def get_user_image(request):
@@ -28,7 +28,9 @@ def analysis_matrix(request):
     json_data = json.loads(request.POST.get('json'))
     matrix = matrixlize(json_data)
     dict_data = recommend_algorithm(matrix)
-    json_format = jsonlize(dict_data)
+    json_format = json_integrate(
+        jsonlize(dict_data), parse_tag(relevent_tag(matrix))
+    )
     print(json_format)
     return render(request, 'recommend.html', json_format)
 

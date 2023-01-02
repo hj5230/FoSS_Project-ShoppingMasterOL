@@ -35,9 +35,36 @@ def jsonlize(matrix: list) -> dict:
                 json['u' + str(_ + 1)].append(__)
     return json
 
+def parse_tag(matrix: list) -> list:
+    tags = ["games", "Nintendo", "work", "study", "music", "relaxation", "clean", "house", "travel", "nature"]
+    LEN_MTX = len(matrix)
+    LEN_TAG = len(tags)
+    tagnames = [[] for _ in range(LEN_MTX)]
+    for _ in range(LEN_MTX):
+        for __ in range(LEN_TAG):
+            if matrix[_][__]:
+                tagnames[_].append(tags[__])
+    return tagnames
+
+def json_integrate(json: list, tags: list) -> list:
+    LEN_TAG = len(tags)
+    for _ in range(LEN_TAG):
+        json['t' + str(_ + 1)] = tags[_]
+    return json
+
 if __name__ == '__main__':
     json = {'0': [1, 1, 0, 0, 0], '1': [0, 1, 1, 1, 0], '2': [1, 0, 0, 1, 1], '3': [1, 1, 0, 0, 1], '4': [0, 1, 0, 1, 0]}
     dict = recommend_algorithm(matrixlize(json))
-    # matrix = matrixlize(json)
+    matrix = matrixlize(json)
     print(dict)
     print(jsonlize(dict))
+
+    print(parse_tag(
+        [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+        ]
+    ))
