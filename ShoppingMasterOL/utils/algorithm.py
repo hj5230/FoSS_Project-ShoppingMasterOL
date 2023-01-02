@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import pairwise_distances
-# from chatterbot import ChatBot
-# from chatterbot.trainers import ChatterBotCorpusTrainer
-# from chatterbot.trainers import ListTrainer
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ListTrainer
 from os import listdir
 from os.path import isfile
 from os.path import join
@@ -90,20 +90,18 @@ def relevent_tag(datasets: list) -> list:
                     num += 1
     return l
 
-def init_chatbot():
-    src = 'D:/ML/relateddata/'
+def init_chatbot() -> None:
+    src = '../public/plugins/relateddata'
     fn= [f for f in listdir(src) if isfile(join(src, f))]
     fn = [src + x for x in fn]
     print(fn)
     ai = ChatBot(
         'talkingAI',  
-        logic_adapters=[ 
-            { 
+        logic_adapters=[{ 
                 'import_path': 'chatterbot.logic.BestMatch', 
                 'default_response': 'I am sorry, but I do not understand.', 
                 'maximum_similarity_threshold': 0.50, 
-            },         
-        ], 
+            },], 
             preprocessors = [ 
                 "chatterbot.preprocessors.clean_whitespace", 
             ], 
@@ -111,14 +109,12 @@ def init_chatbot():
             output_adaptor="chatterbot.output.TerminalAdaptor", 
             database_uri='sqlite:///database.sqlite3') 
     trainer = ChatterBotCorpusTrainer(ai)
-    trainer.train( 
-        *fn,
-        
-        ) 
-    print("I am a talking robot. you can talk with me about health, food and money")
+    trainer.train(*fn,)
+    request=input('You:')
+    response=ai.get_response(request)
+    print('talkingAI:',response)
 
-
-def chat_reply(reinformtation):
+def chat_reply(reinformtation: str) -> str:
     reinformtation = str(reinformtation)
     if reinformtation=='no more talking':
         print('talkingAI: I am looking for next conversation. See you')

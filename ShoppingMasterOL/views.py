@@ -9,6 +9,7 @@ def index(request):
     return render(request, 'index.html')
 
 def service(request):
+    init_chatbot()
     return render(request, 'service.html')
 
 def get_user_image(request):
@@ -33,5 +34,5 @@ def analysis_matrix(request):
 
 @csrf_exempt
 def response_message(request):
-    reply = service_reply((json.loads(request.body)).get('message'))
+    reply = chat_reply((json.loads(request.body)).get('message'))
     return JsonResponse({'reply': reply})
