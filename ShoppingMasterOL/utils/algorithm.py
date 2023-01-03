@@ -110,9 +110,7 @@ def init_chatbot() -> None:
             database_uri='sqlite:///database.sqlite3') 
     trainer = ChatterBotCorpusTrainer(ai)
     trainer.train(*fn,)
-    request=input('You:')
-    response=ai.get_response(request)
-    print('talkingAI:',response)
+    return ai
 
 def chat_reply(reinformtation: str) -> str:
     reinformtation = str(reinformtation)
@@ -131,5 +129,6 @@ def chat_reply(reinformtation: str) -> str:
     elif reinformtation == "Bag" or reinformtation == 'd':
         return "推荐一个Bag"###
     else:
+        ai = init_chatbot()
         response = ai.get_response(reinformtation)
-        print('talkingAI:',response)
+        return response
