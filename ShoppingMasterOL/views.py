@@ -38,3 +38,9 @@ def analysis_matrix(request):
 def response_message(request):
     reply = chat_reply((json.loads(request.body)).get('message'))
     return JsonResponse({'reply': reply})
+
+# @csrf_exempt
+# def response_message(request):
+#     test_dir()
+#     reply = (json.loads(request.body)).get('message')
+#     return JsonResponse({'reply': reply})

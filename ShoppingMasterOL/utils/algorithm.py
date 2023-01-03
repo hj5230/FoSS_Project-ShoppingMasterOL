@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import pairwise_distances
@@ -91,7 +92,7 @@ def relevent_tag(datasets: list) -> list:
     return l
 
 def init_chatbot() -> None:
-    src = '../plugins/relateddata'
+    src = './ShoppingMasterOL/public/plugins/templates'
     fn= [f for f in listdir(src) if isfile(join(src, f))]
     fn = [src + x for x in fn]
     print(fn)
@@ -132,3 +133,6 @@ def chat_reply(reinformtation: str) -> str:
         ai = init_chatbot()
         response = ai.get_response(reinformtation)
         return response
+
+# def test_dir():
+#     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata'))
