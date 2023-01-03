@@ -91,7 +91,7 @@ def relevent_tag(datasets: list) -> list:
     return l
 
 def init_chatbot() -> None:
-    src = '../public/plugins/relateddata'
+    src = '../plugins/relateddata'
     fn= [f for f in listdir(src) if isfile(join(src, f))]
     fn = [src + x for x in fn]
     print(fn)
