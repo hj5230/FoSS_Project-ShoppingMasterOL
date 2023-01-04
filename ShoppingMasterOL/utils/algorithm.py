@@ -91,8 +91,10 @@ def relevent_tag(datasets: list) -> list:
                     num += 1
     return l
 
-def init_chatbot() -> None:
-    src = './ShoppingMasterOL/public/plugins/templates'
+
+
+def chat_reply(reinformtation: str) -> str:
+    src = './ShoppingMasterOL/public/plugins/relateddata'
     fn= [f for f in listdir(src) if isfile(join(src, f))]
     fn = [src + x for x in fn]
     print(fn)
@@ -111,9 +113,6 @@ def init_chatbot() -> None:
             database_uri='sqlite:///database.sqlite3') 
     trainer = ChatterBotCorpusTrainer(ai)
     trainer.train(*fn,)
-    return ai
-
-def chat_reply(reinformtation: str) -> str:
     reinformtation = str(reinformtation)
     if reinformtation=='no more talking':
         print('talkingAI: I am looking for next conversation. See you')
@@ -121,18 +120,20 @@ def chat_reply(reinformtation: str) -> str:
         return "Which area do you need product recommendations for?\na, Electronics\nb, Headphones\nc, Tools\nd, Bag"
     elif reinformtation == '2':
         return "Please enter your order number"
+    elif "#" in reinformtation:
+        return  "Inquiring, please wait......"
     elif reinformtation == "Electronics" or reinformtation == 'a':
-        return  "推荐一个电子产品" ###
+        return 0 ###
     elif reinformtation == "Headphones" or reinformtation == 'b':
-        return  "推荐一个耳机"###
+        return 1###
     elif reinformtation == "Tools" or reinformtation == 'c':
-        return "推荐一个Tools"###
+        return 2###
     elif reinformtation == "Bag" or reinformtation == 'd':
-        return "推荐一个Bag"###
+        return 3###
     else:
-        ai = init_chatbot()
         response = ai.get_response(reinformtation)
-        return response
+        return str(response)
+
 
 # def test_dir():
-#     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata'))
+#     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata')
