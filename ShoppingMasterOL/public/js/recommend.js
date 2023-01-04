@@ -95,17 +95,11 @@ const setUser = async(col, tags) => {
   document.querySelector('#container').appendChild(newCard)
 }
 
-// const inputjson = () => {
-//   let input = document.querySelector('#json')
-//   input.value = JSON.stringify(matrix).toString()
-// }
-
 (async() => {
   console.log("Built with Django")
   const taglist = []
   let tags = (document.querySelector('#info')).querySelectorAll('span')
   for(let i of tags) {
-    console.log(i.innerHTML)
     if(i.innerText.indexOf('\'') != -1) {
       if(i.innerText.indexOf(',') == -1)
       taglist.push([
@@ -123,7 +117,6 @@ const setUser = async(col, tags) => {
     }
     else taglist.push([])
   }
-  console.log(taglist)
   const infolist = []
   let info = (document.querySelector('#info')).querySelectorAll('p')
   for(let i of info) {

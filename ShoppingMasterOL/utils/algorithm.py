@@ -91,8 +91,6 @@ def relevent_tag(datasets: list) -> list:
                     num += 1
     return l
 
-
-
 def chat_reply(reinformtation: str) -> str:
     src = './ShoppingMasterOL/public/plugins/relateddata'
     fn= [f for f in listdir(src) if isfile(join(src, f))]
@@ -134,6 +132,8 @@ def chat_reply(reinformtation: str) -> str:
         response = ai.get_response(reinformtation)
         return str(response)
 
+# def chat_reply(msg):
+#     return msg
 
 # def test_dir():
 #     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata')
