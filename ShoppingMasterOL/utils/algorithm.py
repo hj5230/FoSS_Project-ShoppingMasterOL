@@ -62,7 +62,7 @@ def relevent_tag(datasets: list) -> list:
         datasets1.append(List)
     datasets1.remove([0])
     df = pd.DataFrame(datasets1, columns=labels, index=users)
-    labels_similar = 1 - pairwise_distances(df.T.values, metric='jaccard')
+    labels_similar =  pairwise_distances(df.T.values, metric='jaccard')
     labels_similar = pd.DataFrame(labels_similar, columns=labels, index=labels)
     toplabels = {}
     for i in labels_similar.index:
@@ -91,27 +91,10 @@ def relevent_tag(datasets: list) -> list:
                     num += 1
     return l
 
+
+
 def chat_reply(reinformtation: str) -> str:
-    src = './ShoppingMasterOL/public/plugins/relateddata'
-    fn= [f for f in listdir(src) if isfile(join(src, f))]
-    fn = [src + x for x in fn]
-    print(fn)
-    ai = ChatBot(
-        'talkingAI',  
-        logic_adapters=[{ 
-                'import_path': 'chatterbot.logic.BestMatch', 
-                'default_response': 'I am sorry, but I do not understand.', 
-                'maximum_similarity_threshold': 0.50, 
-            },], 
-            preprocessors = [ 
-                "chatterbot.preprocessors.clean_whitespace", 
-            ], 
-            input_adaptor="chatterbot.input.TerminalAdaptor", 
-            output_adaptor="chatterbot.output.TerminalAdaptor", 
-            database_uri='sqlite:///database.sqlite3') 
-    trainer = ChatterBotCorpusTrainer(ai)
-    trainer.train(*fn,)
-    reinformtation = str(reinformtation)
+
     if reinformtation=='no more talking':
         print('talkingAI: I am looking for next conversation. See you')
     elif reinformtation == '1':
@@ -129,11 +112,78 @@ def chat_reply(reinformtation: str) -> str:
     elif reinformtation == "Bag" or reinformtation == 'd':
         return 3###
     else:
+        robot = ChatBot('Bob')
+        trainer = ListTrainer(robot)
+        trainer.train([
+        'Hi',
+        'Hello',
+        'I need your assistance regarding my order',
+        'Please, Provide me with your order id',
+        'I have a complaint.',
+        'Please elaborate, your concern',
+        'How long it will take to receive an order ?',
+        'An order takes 3-5 Business days to get delivered.',
+        'Okay Thanks',
+        'No Problem! Have a Good Day!',
+        'I want a bag',
+        'Could you give me more hint? I am trying to recommend the best one for you!',
+        'I want a large-capacity travel backpack',
+        'Found a Doshwin 70L backpack for you. Hope you like it! 😊',
+       'I want a pad',
+        'Found 2021 Apple iPad for you!',
+        'I want headphones',
+        'What kind of headphones do you want?',
+        'Do you have wireless bluetooth?',
+        'Found Sony WH-1000XM5 Wireless Bluetooth Noise Cancelling Headphones. Click on the link and go to product page! 😉',
+        'I want to buy a Switch',
+        'Found Nintendo Switch-Konsole. Do you like it? 😃',
+        'Is there a window cleaner?',
+        'Found Real Techniques 1413 Setting Brush. Is it the prodcut you are looking for? 😊',
+        'Is there anything else?',
+        'Could you give me more hint? I am trying to recommend the best one for you! 🙂',
+        'How can I make a return?',
+        'You can You can fill out the return form and send the package to ...',
+        'I want to track my package',
+        'Please go to this link and enter your order number to inquire. link ',
+        'How many days will it take to ship?',
+        'We usually send the package within 5 working days.',
+        'Do I need to pay customs duty?',
+        'Orders from EU countries are not subject to customs duties. Customs duties for worldwide shipments are determined by the policies of their countries.',
+        'Is this true to size?',
+        'Not marked in the details page of the product are true to size. 😊',
+        'Do you have student discounts?',
+        'Yes, You can go for student certification and get 10 discounts for everything!',
+        'What if I receive a package with damaged items in it?',
+        'Sorry, we are not responsible for damage to packages caused in transit. However, if the product does not work properly due to non-shipping issues please contact us. 😊',
+        'Thank you',
+        'My pleasure 😃',
+        
+        ])
+        response = robot.get_response(reinformtation)
+
+        return str(response)
+        """
+        src = './ShoppingMasterOL/public/plugins/relateddata/'
+        fn= [f for f in listdir(src) if isfile(join(src, f))]
+        fn = [src + x for x in fn]
+        ai = ChatBot(
+            'talkingAI',  
+            logic_adapters=[{ 
+                    'import_path': 'chatterbot.logic.BestMatch', 
+                    'default_response': 'I am sorry, but I do not understand.', 
+                    'maximum_similarity_threshold': 0.50, 
+                },], 
+                preprocessors = [ 
+                    "chatterbot.preprocessors.clean_whitespace", 
+                ], 
+                input_adaptor="chatterbot.input.TerminalAdaptor", 
+                output_adaptor="chatterbot.output.TerminalAdaptor", 
+                database_uri='sqlite:///database.sqlite3') 
+        trainer = ChatterBotCorpusTrainer(ai)
+        trainer.train( *fn) 
         response = ai.get_response(reinformtation)
         return str(response)
-
-# def chat_reply(msg):
-#     return msg
+        """
 
 # def test_dir():
-#     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata')
+#     print(os.listdir('./ShoppingMasterOL/public/plugins/relateddata'))
